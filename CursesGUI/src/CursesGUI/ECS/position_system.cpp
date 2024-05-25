@@ -6,6 +6,7 @@
 #include "attributes_system.h"
 #include "CursesGUI/ECS/components.h"
 #include "CursesGUI/Elements/ielement.h"
+#include "child_element_lookup_system.h"
 
 namespace CursesGUI
 {
@@ -16,7 +17,14 @@ namespace CursesGUI
         assert(element.valid() && "Must use valid element");
 
         auto& positionComponent = g_Registry.get<Position>(element.getEntity());
-        positionComponent.y = n;
+        int& y = positionComponent.y;
+        int oldY = y;
+        y = n;
+
+        // Set the new position of children relative to parent
+        auto children = getChildren(element);
+        for (auto& child : children)
+            setY(*child, getY(*child)+(y-oldY));
 
         setAttribute(element, PanelAttribute::MODIFIED, true);
         return true;
@@ -27,7 +35,14 @@ namespace CursesGUI
         assert(element.valid() && "Must use valid element");
 
         auto& positionComponent = g_Registry.get<Position>(element.getEntity());
-        positionComponent.x = n;
+        int& x = positionComponent.x;
+        int oldX = x;
+        x = n;
+
+        // Set the new position of children relative to parent
+        auto children = getChildren(element);
+        for (auto& child : children)
+            setX(*child, getX(*child)+(x-oldX));
 
         setAttribute(element, PanelAttribute::MODIFIED, true);
         return true;
@@ -37,11 +52,8 @@ namespace CursesGUI
     {
         assert(element.valid() && "Must use valid element");
 
-        auto& positionComponent = g_Registry.get<Position>(element.getEntity());
-        positionComponent.y = y;
-        positionComponent.x = x;
-
-        setAttribute(element, PanelAttribute::MODIFIED, true);
+        setY(element, y);
+        setX(element, x);
         return true;
     }
 
@@ -50,20 +62,7 @@ namespace CursesGUI
         assert(element.valid() && "Must use valid element");
 
         auto& positionComponent = g_Registry.get<Position>(element.getEntity());
-
-        // Get parent element (if any)
-        auto parentElement = element.getParent();
-
-        // Set position based on parent window (if it exists)
-        int parentY = 0;
-        if (parentElement != nullptr && parentElement->valid())
-        {
-            // Get position for parent
-            parentY = getY(*parentElement);
-            if (parentY < 0) parentY = 0;
-        }
-
-        return positionComponent.y+parentY;
+        return positionComponent.y;
     }
 
     int getX(IElement& element)
@@ -71,20 +70,7 @@ namespace CursesGUI
         assert(element.valid() && "Must use valid element");
 
         auto& positionComponent = g_Registry.get<Position>(element.getEntity());
-
-        // Get parent element (if any)
-        auto parentElement = element.getParent();
-
-        // Set position based on parent window (if it exists)
-        int parentX = 0;
-        if (parentElement != nullptr && parentElement->valid())
-        {
-            // Get position for parent
-            parentX = getX(*parentElement);
-            if (parentX < 0) parentX = 0;
-        }
-
-        return positionComponent.x+parentX;
+        return positionComponent.x;
     }
 
     int getTopBorder(IElement& element) { return getY(element); }

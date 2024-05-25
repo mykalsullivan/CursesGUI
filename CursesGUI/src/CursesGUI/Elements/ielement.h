@@ -36,9 +36,10 @@ namespace CursesGUI
     public:
         virtual entt::entity getEntity() { return m_Entity; }
         virtual bool valid() { return m_Entity != entt::null; }
+        virtual bool equalTo(IElement&);
 
         virtual IElement* getParent();
-        virtual bool setParent(IElement& target);
+        virtual bool setParent(IElement&);
         virtual bool hasParent();
 
         virtual ElementType getType() { return m_ElementType; }

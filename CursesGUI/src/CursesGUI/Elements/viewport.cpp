@@ -17,7 +17,7 @@ namespace CursesGUI
         // Set up components that all elements share
         m_Entity = g_Registry.create();
         g_Registry.emplace<Lookup>(m_Entity) = { this, nullptr };
-        g_Registry.emplace<CursesWindow>(m_Entity);
+        g_Registry.emplace<CursesWindow>(m_Entity) = stdscr;
         g_Registry.emplace<Position>(m_Entity);
         g_Registry.emplace<Dimensions>(m_Entity);
         g_Registry.emplace<Attributes>(m_Entity);

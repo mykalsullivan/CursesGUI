@@ -10,8 +10,16 @@ namespace CursesGUI
 {
     extern entt::registry g_Registry;
 
+    bool IElement::equalTo(IElement& target)
+    {
+        assert(target.valid() && "Cannot compare to invalid target");
+        if (m_Entity == target.getEntity()) return true;
+        return false;
+    }
+
     IElement* IElement::getParent()
     {
+        if (g_Registry.get<Lookup>(m_Entity).parent == nullptr) return nullptr;
         return g_Registry.get<Lookup>(m_Entity).parent;
     }
 

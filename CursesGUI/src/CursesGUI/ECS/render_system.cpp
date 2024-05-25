@@ -11,6 +11,7 @@
 #include "CursesGUI/ECS/components.h"
 #include "CursesGUI/Elements/ielement.h"
 #include "CursesGUI/Elements/viewport.h"
+#include "child_element_lookup_system.h"
 #include <thread>
 
 namespace CursesGUI
@@ -22,66 +23,46 @@ namespace CursesGUI
     {
         CursesWindow getCursesWindow(IElement& element)
         {
-            // Return if element is invalid
-            if (!element.valid()) return nullptr;
-            return g_Registry.get<CursesWindow>(element.getEntity());
+            assert(element.valid() && "Cannot retrieve Curses window of invalid element");
+
+            if (g_Registry.get<CursesWindow>(element.getEntity()) != nullptr)
+                return g_Registry.get<CursesWindow>(element.getEntity());
+
+            return nullptr;
         }
 
         void setCursesWindow(IElement& element, CursesWindow cursesWindow)
         {
-            // Return if element is invalid
-            if (!element.valid()) return;
+            assert(element.valid() && "Cannot set Curses window for invalid element");
+            assert(cursesWindow != nullptr && "Cannot bind null Curses window to element");
+
             g_Registry.get<CursesWindow>(element.getEntity()) = cursesWindow;
         }
 
         void resetCursesWindow(IElement& element)
         {
-            // Return if element is invalid
-            if (!element.valid()) return;
-
-
+            assert(element.valid() && "Cannot reset Curses window on invalid element");
 
             CursesWindow cursesWindow = getCursesWindow(element);
-            if (cursesWindow != nullptr) delwin(cursesWindow);
-
-
-
-            CursesWindow parentCursesWindow = nullptr;
-
-
-
-            // Reset if element is the viewport
-            if (element.isType(ElementType::VIEWPORT)) parentCursesWindow = stdscr;
-
-
-
-            if (element.hasParent())
-                parentCursesWindow = getCursesWindow(*element.getParent());
-
-
+            delwin(cursesWindow);
 
             // Get dimensions of terminal and set the dimensions of the viewport accordingly
             if (element.isType(VIEWPORT))
+            {
                 setDimensions(element, getmaxy(stdscr), getmaxx(stdscr));
-            if (element.hasParent() && !element.isType(VIEWPORT))
-                setDimensions(element, getmaxy(parentCursesWindow), getmaxx(parentCursesWindow));
+                setCursesWindow(element, stdscr);
+            }
+            else if (element.hasParent() && !element.isType(VIEWPORT))
+            {
+                resetCursesWindow(element);
 
+                int height = getHeight(element);
+                int width = getWidth(element);
+                int y = getY(element);
+                int x = getX(element);
 
-
-            int height = getHeight(element);
-            int width = getWidth(element);
-            int y = getY(element);
-            int x = getX(element);
-
-
-
-            // Set Curses window based on parent
-            if (element.isType(VIEWPORT))
-                cursesWindow = dupwin(parentCursesWindow);
-            if (element.hasParent() && !element.getParent()->isType(VIEWPORT))
-                cursesWindow = derwin(parentCursesWindow, height, width, y, x);
-
-            setCursesWindow(element, cursesWindow);
+                setCursesWindow(element, derwin(getCursesWindow(*element.getParent()), height, width, y, x));
+            }
         }
     }
 
@@ -101,8 +82,8 @@ namespace CursesGUI
                     refresh();
                 }
                 resetCursesWindow(element);
+                setDimensions(element, getHeight(element), getWidth(element));
             }
-
             setAttribute(element, PanelAttribute::MODIFIED, false);
         }
 
@@ -113,10 +94,21 @@ namespace CursesGUI
             // Draw border around panel if the element has one
             if (getAttribute(element, PanelAttribute::BORDER)) box(getCursesWindow(element), 0, 0);
 
-            box(getCursesWindow(element), 0, 0);
-            timeout(-1);
-            getch();
-            timeout(3);
+            /* START DEBUG */
+            mvprintw(15, 1, "Element #%d", (int) element.getEntity());
+            mvprintw(16, 1, "y: %d, x: %d, height: %d, width: %d",
+                     getY(element),
+                     getX(element),
+                     getHeight(element),
+                     getWidth(element));
+
+            mvprintw(17, 1, "y: %d, x: %d, height: %d, width: %d",
+                     getCursesWindow(element)->_cury,
+                     getCursesWindow(element)->_curx,
+                     getmaxy(getCursesWindow(element)),
+                     getmaxx(getCursesWindow(element)));
+            wrefresh(getCursesWindow(element));
+            /* END DEBUG */
 
             // Increment frame counter for element
             incrementTickCounter(element);
@@ -161,12 +153,25 @@ namespace CursesGUI
 
                 if (element->isType(VIEWPORT)) continue;
 
+                // Refresh element
                 resetElement(*element);
                 updateElement(*element);
                 drawElement(*element);
+
+                // If it is a panel, refresh children
+                if (element->isType(PANEL))
+                {
+                    auto children = getChildren(*element);
+                    for (auto child : children)
+                    {
+                        resetElement(*child);
+                        updateElement(*child);
+                        drawElement(*child);
+                    }
+                }
             }
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(17));
+            std::this_thread::sleep_for(std::chrono::microseconds (16666));
         }
     }
 }

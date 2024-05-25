@@ -12,8 +12,7 @@ namespace CursesGUI
 
     std::vector<IElement*> getChildren(IElement& element)
     {
-        // Return if the element doesn't have any children
-        if (!element.valid()) return {};
+        assert(element.valid() && "Cannot retrieve children of invalid element");
 
         std::vector<IElement*> children;
 
@@ -22,9 +21,10 @@ namespace CursesGUI
         {
             auto elementWithParent = g_Registry.get<Lookup>(entity).self;
             auto parentElement = g_Registry.get<Lookup>(entity).parent;
+
             if (elementWithParent == nullptr || parentElement == nullptr) continue;
 
-            if (elementWithParent->getParent()->getEntity() == element.getEntity())
+            if (parentElement->equalTo(element))
                 children.emplace_back(elementWithParent);
         }
         return children;

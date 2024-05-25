@@ -16,6 +16,7 @@ namespace CursesGUI
             getBottomBorder(element)-n == getBottomBorder(*element.getParent()))
             return false;
 
+        // Set y-coordinate of element
         setY(element, getY(element)+n);
         return true;
     }
@@ -28,6 +29,7 @@ namespace CursesGUI
             getRightBorder(element)-n == getRightBorder(*element.getParent()))
             return false;
 
+        // Set x-coordinate of element
         setX(element, getX(element)+n);
         return true;
     }

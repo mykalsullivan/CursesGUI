@@ -73,6 +73,8 @@ namespace CursesGUI
     bool Panel::addChild(IElement& element)
     {
         if (!element.valid()) return false;
+        if (&element == this) return false;
+
         element.setParent(*this);
 
         m_Children.emplace_back(&element);
