@@ -51,28 +51,6 @@ add_library(CursesGUI_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}
         CursesGUI/src/CursesGUI/Elements/text_box.cpp
         CursesGUI/src/CursesGUI/Elements/text.cpp
         CursesGUI/src/CursesGUI/Elements/text_field.cpp
-
-### DEPRECATED FOR NOW ###
-#        # Commands
-#        CursesGUI/src/CursesGUI/Commands/add/add_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/add/add_window_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/add/add_element_command.cpp
-#
-#        CursesGUI/src/CursesGUI/Commands/destroy/remove_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/destroy/remove_window_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/destroy/remove_element_command.cpp
-
-#        CursesGUI/src/CursesGUI/Commands/move/move_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/move/move_window_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/move/move_element_command.cpp
-#
-#        CursesGUI/src/CursesGUI/Commands/set/set_input_mode_command.cpp
-#
-#        CursesGUI/src/CursesGUI/Commands/etc/exit_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/etc/empty_command.cpp
-#        CursesGUI/src/CursesGUI/Commands/etc/invalid_command.cpp
-#
-#        CursesGUI/src/CursesGUI/Commands/debug/window_count_command.cpp
 )
 
 target_include_directories(CursesGUI_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}

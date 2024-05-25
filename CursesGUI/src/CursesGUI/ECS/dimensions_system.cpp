@@ -41,7 +41,7 @@ namespace CursesGUI
         // Return if element is invalid
         if (!element.valid()) return;
 
-        // Set dimensions on element.getEntity()
+        // Set dimensions on element
         auto& dimensions = g_Registry.get<Dimensions>(element.getEntity());
         dimensions.height = h;
         dimensions.width = w;

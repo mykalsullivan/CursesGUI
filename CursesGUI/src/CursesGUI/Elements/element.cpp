@@ -51,6 +51,8 @@ namespace CursesGUI
 
     Element::~Element()
     {
+        if (!UI::isRunning()) return;
+
         // Delete Curses window
         if (g_Registry.get<CursesWindow>(m_Entity) != nullptr)
             delwin(g_Registry.get<CursesWindow>(m_Entity));

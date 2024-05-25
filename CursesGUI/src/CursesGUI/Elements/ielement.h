@@ -4,7 +4,7 @@
 
 #pragma once
 #include "CursesGUI/Core/ui.h"
-#include "entt.hpp"
+#include <entt.hpp>
 
 namespace CursesGUI
 {

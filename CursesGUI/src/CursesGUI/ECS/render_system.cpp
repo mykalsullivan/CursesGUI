@@ -8,11 +8,9 @@
 #include "dimensions_system.h"
 #include "attributes_system.h"
 #include "info_system.h"
-#include "child_element_lookup_system.h"
 #include "CursesGUI/ECS/components.h"
 #include "CursesGUI/Elements/ielement.h"
 #include "CursesGUI/Elements/viewport.h"
-#include "CursesGUI/Core/ui.h"
 #include <thread>
 
 namespace CursesGUI
@@ -41,141 +39,134 @@ namespace CursesGUI
             // Return if element is invalid
             if (!element.valid()) return;
 
+
+
             CursesWindow cursesWindow = getCursesWindow(element);
             if (cursesWindow != nullptr) delwin(cursesWindow);
 
-            // Reset if element is the viewport
-            if (element.getType() == ElementType::VIEWPORT)
-            {
-                // Get dimensions of terminal and set the dimensions of the viewport accordingly
-                setDimensions(g_Viewport, getmaxy(stdscr), getmaxx(stdscr));
-                cursesWindow = dupwin(stdscr);
-                setCursesWindow(element, cursesWindow);
-                return;
-            }
+
 
             CursesWindow parentCursesWindow = nullptr;
+
+
+
+            // Reset if element is the viewport
+            if (element.isType(ElementType::VIEWPORT)) parentCursesWindow = stdscr;
+
+
+
             if (element.hasParent())
                 parentCursesWindow = getCursesWindow(*element.getParent());
+
+
+
+            // Get dimensions of terminal and set the dimensions of the viewport accordingly
+            if (element.isType(VIEWPORT))
+                setDimensions(element, getmaxy(stdscr), getmaxx(stdscr));
+            if (element.hasParent() && !element.isType(VIEWPORT))
+                setDimensions(element, getmaxy(parentCursesWindow), getmaxx(parentCursesWindow));
+
+
 
             int height = getHeight(element);
             int width = getWidth(element);
             int y = getY(element);
             int x = getX(element);
-            cursesWindow = derwin(parentCursesWindow, height, width, y, x);
+
+
+
+            // Set Curses window based on parent
+            if (element.isType(VIEWPORT))
+                cursesWindow = dupwin(parentCursesWindow);
+            if (element.hasParent() && !element.getParent()->isType(VIEWPORT))
+                cursesWindow = derwin(parentCursesWindow, height, width, y, x);
+
             setCursesWindow(element, cursesWindow);
+        }
+    }
+
+    namespace
+    {
+        void resetElement(IElement& element)
+        {
+            assert(element.valid() && "Cannot reset an invalid element");
+
+            // If modified, reset Curses window
+            if (getAttribute(element, PanelAttribute::MODIFIED))
+            {
+                // If element is a viewport, reset Curses so that screen dimensions can be refreshed
+                if (element.isType(ElementType::VIEWPORT))
+                {
+                    endwin();
+                    refresh();
+                }
+                resetCursesWindow(element);
+            }
+
+            setAttribute(element, PanelAttribute::MODIFIED, false);
+        }
+
+        void updateElement(IElement& element)
+        {
+            assert(element.valid() && "Cannot update an invalid element");
+
+            // Draw border around panel if the element has one
+            if (getAttribute(element, PanelAttribute::BORDER)) box(getCursesWindow(element), 0, 0);
+
+            box(getCursesWindow(element), 0, 0);
+            timeout(-1);
+            getch();
+            timeout(3);
+
+            // Increment frame counter for element
+            incrementTickCounter(element);
+        }
+
+        void drawElement(IElement& element)
+        {
+            assert(element.valid() && "Cannot draw an invalid element");
+            wrefresh(getCursesWindow(element));
         }
     }
 
     namespace UI
     {
-        void reset()
+        void refresh()
         {
             // Don't do anything if the UI hasn't started
             if (!UI::isRunning()) return;
 
-            endwin();
-            refresh();
-            wclear(getCursesWindow(g_Viewport));
+            // Get all elements
+            auto elements = g_Registry.view<Lookup>();
 
-            // Reset viewport, then all elements
-            resetElement(g_Viewport);
-            for (auto element : getChildren(g_Viewport)) resetElement(*element);
-        }
 
-        void update()
-        {
-            // Don't do anything if the UI hasn't started
-            if (!UI::isRunning()) return;
+            // Find and draw viewport
+            for (auto elementID : elements)
+            {
+                auto& element = g_Registry.get<Lookup>(elementID).self;
+                if (element->isType(VIEWPORT))
+                {
+                    resetElement(*element);
+                    updateElement(*element);
+                    drawElement(*element);
+                    break;
+                }
+            }
 
-            // Update viewport, then all elements below it
-            updateElement(g_Viewport);
-            for (auto element : getChildren(g_Viewport))
-                if (!getAttribute(*element, PanelAttribute::PAUSED)) updateElement(*element);
-        }
+            // Draw children
+            for (auto& elementID : elements)
+            {
+                auto& element = g_Registry.get<Lookup>(elementID).self;
+                assert(element->valid() && "Cannot refresh an invalid element");
 
-        void draw()
-        {
-            // Don't do anything if the UI hasn't started
-            if (!UI::isRunning()) return;
+                if (element->isType(VIEWPORT)) continue;
 
-            // Draw viewport, then draw all panels that are not hidden and have been modified
-            drawElement(g_Viewport);
+                resetElement(*element);
+                updateElement(*element);
+                drawElement(*element);
+            }
 
-            for (auto element : getChildren(g_Viewport))
-                if (!getAttribute(*element, PanelAttribute::HIDDEN)) drawElement(*element);
-
-            // Sleep for a frame, then refresh Curses
             std::this_thread::sleep_for(std::chrono::milliseconds(17));
         }
-    }
-
-    void resetElement(IElement& element)
-    {
-        // Return if element doesn't exist
-        assert(element.valid() && "Cannot reset an invalid element");
-
-        // If modified, reset Curses window
-        if (getAttribute(element, PanelAttribute::MODIFIED))
-            resetCursesWindow(element);
-
-        // Get position
-        int y = getY(element), x = getX(element);
-
-        // Get parent element (if any)
-        auto parentElement = element.getParent();
-
-        // Set position based on parent window (if it exists)
-        if (parentElement != nullptr && parentElement->valid())
-        {
-            // Get position for parent
-            int parentY = getY(*parentElement);
-            int parentX = getX(*parentElement);
-//                setPosition(element, parentY, parentX);
-        }
-
-        // Reset all children as well
-        std::vector<IElement*> children = getChildren(element);
-        for (auto child : children)
-            resetElement(*child);
-
-        setAttribute(element, PanelAttribute::MODIFIED, false);
-    }
-
-    void updateElement(IElement& element)
-    {
-        // Return if element doesn't exist
-        assert(element.valid() && "Cannot update an invalid element");
-//
-//            // Return if element is paused
-//            if (getAttribute(element, PanelAttribute::PAUSED)) return;
-
-//            // Return if it is not the viewport or panel, or it doesn't have a parent
-//            if ((element.getType() != ElementType::PANEL ||
-//                 element.getType() != ElementType::VIEWPORT) &&
-//                !element.hasParent()) return;
-
-        // Draw border around panel if the element has one
-        if (getAttribute(element, PanelAttribute::BORDER)) box(getCursesWindow(element), 0, 0);
-
-        // Update all children as well
-        for (auto child : getChildren(element))
-            updateElement(*child);
-
-        incrementTickCounter(g_Viewport);
-    }
-
-    void drawElement(IElement& element)
-    {
-        // Return if element doesn't exist
-        assert(element.valid() && "Cannot draw an invalid element");
-
-        // Refresh Curses window
-        mvwprintw(getCursesWindow(element), getHeight(element)-1, 2, "%ld", getTicks(element));
-        wrefresh(getCursesWindow(element));
-
-        // Draw all children as well
-        for (auto& child : getChildren(element))
-            drawElement(*child);
     }
 }

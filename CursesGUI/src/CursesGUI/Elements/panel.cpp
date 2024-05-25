@@ -52,6 +52,8 @@ namespace CursesGUI
 
     Panel::~Panel()
     {
+        if (!UI::isRunning()) return;
+
         // Remove all children from registry
         for (auto child : m_Children)
             g_Registry.destroy(child->getEntity());

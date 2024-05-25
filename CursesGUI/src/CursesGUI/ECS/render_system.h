@@ -12,12 +12,6 @@ namespace CursesGUI
 
     namespace UI
     {
-        void reset();
-        void update();
-        void draw();
+        void refresh();
     }
-
-    void resetElement(IElement&);
-    void updateElement(IElement&);
-    void drawElement(IElement&);
 }

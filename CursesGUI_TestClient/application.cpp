@@ -22,8 +22,8 @@ int Application::run(int argc, char* argv[])
     UI::start(argc, argv);
 
     Panel panel;
-    setPosition(panel, 5, getWidth(panel)+2);
-    setDimensions(panel, getHeight(panel)/2, getWidth(panel));
+    setPosition(panel, 5, 5);
+    setDimensions(panel, 20, 40);
     panel.show();
 
     Element element;
@@ -32,13 +32,9 @@ int Application::run(int argc, char* argv[])
     element.setParent(panel);
     element.show();
 
-    panel.addChild(element);
-
     while (UI::isRunning())
     {
-        UI::reset();
-        UI::update();
-        UI::draw();
+        UI::refresh();
     }
     UI::stop();
     return 0;
