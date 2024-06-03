@@ -32,4 +32,4 @@ If you want to contribute, just fork the code and submit a pull request!
 Bug-testing is super helpful. PLEASE... TRY TO BREAK MY PROGRAM!!!
 
 ## Contributers
-Mykal Sullivan - Primary contributor (_well, THE contributor at the moment..._
+Mykal Sullivan - Primary contributor (_well, THE contributor at the moment...)_
