@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.25"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "CursesGUI",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "CursesGUI_0.0.0::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CursesGUI_0.0.0-Debug-51c011b4155b3281b90f.json",
+					"name" : "CursesGUI_0.0.0",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "CursesGUI_TestClient_0.0.0::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CursesGUI_TestClient_0.0.0-Debug-7143fa67f50b41f04919.json",
+					"name" : "CursesGUI_TestClient_0.0.0",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/msullivan/Development/CLion/CursesGUI/cmake-build-debug",
+		"source" : "/home/msullivan/Development/CLion/CursesGUI"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

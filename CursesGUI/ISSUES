@@ -1,0 +1,11 @@
+* You might want to fix the CList
+	- Objects cannot be removed
+	- The 'clear' function does not delete objects from the list
+* When a QWidget is destroyed, the children are not properly deleted along with it
+* Widgets need a way to remove itself from it's parent if it is the child of a parent widget.
+	- Example:
+		CWidget* widget1 = new CWidget; 	<-- Widget 1
+		CWidget* widget2 = new CWidget;		<-- Widget 2
+		widget1->addWidget(widget2);		<-- Widget 2 is now the child of widget 1
+		
+		delete widget2;				<-- Widget 2 has been deleted, but a pointer to it still exists in widget 1

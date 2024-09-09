@@ -1,0 +1,4 @@
+/home/msullivan/Development/CLion/CursesGUI/cmake-build-debug/CMakeFiles/CursesGUI_0.0.0.dir
+/home/msullivan/Development/CLion/CursesGUI/cmake-build-debug/CMakeFiles/CursesGUI_TestClient_0.0.0.dir
+/home/msullivan/Development/CLion/CursesGUI/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/msullivan/Development/CLion/CursesGUI/cmake-build-debug/CMakeFiles/rebuild_cache.dir
