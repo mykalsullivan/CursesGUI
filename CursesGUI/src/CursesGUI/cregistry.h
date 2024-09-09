@@ -3,6 +3,6 @@
 //
 
 #pragma once
-#include "../entt.hpp"
+#include "../../include/entt.hpp"
 
 using CRegistry = entt::registry;

@@ -7,6 +7,6 @@
 
 class CVLayout : public CLayout {
 public:
-    CVLayout(QWidget *parent = nullptr);
+    explicit CVLayout(QWidget *parent = nullptr);
     ~CVLayout() override;
 };

@@ -8,11 +8,10 @@ set(VERSION_MAJOR 0)
 set(VERSION_MINOR 0)
 set(VERSION_REVISION 0)
 project(CursesGUI VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}
-        DESCRIPTION "(Semi) graphical user-interface API library"
+        DESCRIPTION "(Semi) graphical user-interface API library that aims to bring Qt to the command-line."
         LANGUAGES CXX)
 
 find_package(Curses REQUIRED)
-include_directories(${CURESES_INCLUDE_DIR})
 
 add_executable(CursesGUI
         src/ECS/components.h
@@ -47,9 +46,10 @@ add_executable(CursesGUI
         src/CursesGUI/cvlayout.cpp
         src/CursesGUI/cstretch.h
         src/CursesGUI/capplication.cpp
-        src/main.cpp
         src/CursesGUI/cwidget_list.h
+        src/main.cpp
 )
 
 target_link_libraries(CursesGUI
-        ${CURSES_LIBRARIES})
+        ${CURSES_LIBRARIES}
+)

@@ -7,7 +7,7 @@
 
 class CStretch : public CObject {
 public:
-    CStretch(CObject *parent = nullptr);
+    explicit CStretch(CObject *parent = nullptr);
     ~CStretch() override;
 
 

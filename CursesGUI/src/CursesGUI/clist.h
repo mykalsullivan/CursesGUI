@@ -6,8 +6,6 @@
 #include <cassert>
 #include <vector>
 
-#include <ncurses.h>
-
 template<typename T>
 class CList {
     std::vector<T> m_List;

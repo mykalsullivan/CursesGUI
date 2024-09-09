@@ -4,7 +4,7 @@
 
 #include "cwidget.h"
 #include "../ECS/components.h"
-#include "../entt.hpp"
+#include "../../include/entt.hpp"
 
 CWidget::CWidget(CWidget *parent) : m_Parent(parent), m_Layout(nullptr)
 {

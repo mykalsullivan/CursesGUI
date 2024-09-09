@@ -81,22 +81,12 @@ void CApplication::exit()
     m_Running = false;
 }
 
-long CApplication::widgetCount() const
+unsigned long CApplication::widgetCount()
 {
-    auto widgets = g_Registry.view<CursesWindowComponent>();
-
-    long count = 0l;
-    for (auto widget : widgets)
-        count++;
-    return count;
+    return g_Registry.view<CursesWindowComponent>().size();
 }
 
-long CApplication::objectCount() const
+unsigned long CApplication::objectCount()
 {
-    auto objects = g_Registry.view<Data>();
-
-    long count = 0l;
-    for (auto object : objects)
-        count++;
-    return count;
+    return g_Registry.view<Data>().size();
 }

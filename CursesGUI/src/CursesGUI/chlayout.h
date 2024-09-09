@@ -7,7 +7,7 @@
 
 class CHLayout : public CLayout {
 public:
-    CHLayout(QWidget *parent = nullptr);
+    explicit CHLayout(QWidget *parent = nullptr);
     ~CHLayout() override;
 
 public:

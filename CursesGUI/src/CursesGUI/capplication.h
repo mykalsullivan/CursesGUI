@@ -4,7 +4,7 @@
 
 #pragma once
 #include <cassert>
-#include "../entt.hpp"
+#include "../../include/entt.hpp"
 
 // Forward declaration(s)
 class CInput {};
@@ -44,6 +44,6 @@ public:
     int run();
     void exit();
 
-    [[nodiscard]] long widgetCount() const;
-    [[nodiscard]] long objectCount() const;
+    [[nodiscard]] static unsigned long widgetCount();
+    [[nodiscard]] static unsigned long objectCount();
 };

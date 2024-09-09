@@ -1,3 +1,0 @@
-/home/msullivan/Development/CLion/CursesGUI/CursesGUI/cmake-build-debug/CMakeFiles/CursesGUI.dir
-/home/msullivan/Development/CLion/CursesGUI/CursesGUI/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/msullivan/Development/CLion/CursesGUI/CursesGUI/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -4,7 +4,7 @@
 
 #pragma once
 #include "cregistry.h"
-#include "../entt.hpp"
+#include "../../include/entt.hpp"
 
 extern CRegistry g_Registry;
 
