@@ -3,12 +3,9 @@
 //
 
 #pragma once
+#include "cinput.h"
 #include <cassert>
 #include "../../include/entt.hpp"
-
-// Forward declaration(s)
-class CInput {};
-class CBinds {};
 
 struct CCommandLineArgs
 {
@@ -24,14 +21,15 @@ struct CCommandLineArgs
 
 class CApplication {
 public:
-    CApplication() = default;
-    CApplication(int argc, char *argv[]);
+    explicit CApplication(int argc = 0, char *argv[] = nullptr);
     ~CApplication();
 
     CApplication(const CApplication&) = delete;
     CApplication(CApplication&&) = delete;
     CApplication& operator=(const CApplication&) = delete;
     CApplication& operator=(CApplication&&) = delete;
+
+    static CApplication &instance();
 
 private:
     CCommandLineArgs m_Args;
@@ -40,10 +38,13 @@ private:
     bool m_Running;
 
 public:
-    static CApplication &instance();
     int run();
     void exit();
 
+    [[nodiscard]] CCommandLineArgs args() const { return m_Args; }
+    [[nodiscard]] CInput input() const { return m_InputBuffer; }
+    [[nodiscard]] CBinds binds() const { return m_Binds; }
+    [[nodiscard]] bool isRunning() const { return m_Running; }
     [[nodiscard]] static unsigned long widgetCount();
     [[nodiscard]] static unsigned long objectCount();
 };

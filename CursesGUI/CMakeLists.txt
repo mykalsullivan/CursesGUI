@@ -48,6 +48,7 @@ add_executable(CursesGUI
         src/CursesGUI/capplication.cpp
         src/CursesGUI/cwidget_list.h
         src/main.cpp
+        src/CursesGUI/cinput.h
 )
 
 target_link_libraries(CursesGUI

@@ -5,21 +5,10 @@
 #include "capplication.h"
 #include "cviewport.h"
 #include "../ECS/components.h"
+#include "../ECS/render_system.h"
 #include <ncurses.h>
 
 struct CursesWindowComponent;
-
-namespace
-{
-    void init()
-    {
-        initscr();
-        start_color();
-        noecho();
-        curs_set(0);
-        refresh();
-    }
-}
 
 CApplication::CApplication(int argc, char *argv[])
 {
@@ -40,18 +29,23 @@ CApplication &CApplication::instance()
 
 int CApplication::run()
 {
-    init();
+    /* Curses stuff */
+    initscr();
+    start_color();
+    noecho();
+    curs_set(0);
+    refresh();
+
     CViewport viewport;
 
     while (m_Running)
     {
-        // 1. Get input
+        // 1. Buffer input
+        inputBuffer.key = getch();
+        // ...buffer mouse input (will require some work)
 
-
-        // 2. Refresh all CObjects
-
-
-        // 3. Draw all CObjects
+        // 2. Advance frame (which will process input + update the terminal)
+        UI::advanceFrame();
 
         exit();
     }

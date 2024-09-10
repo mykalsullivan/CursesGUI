@@ -2,7 +2,9 @@
 // Created by msullivan on 9/7/24.
 //
 
-#ifndef RENDER_SYSTEM_H
-#define RENDER_SYSTEM_H
+#pragma once
 
-#endif //RENDER_SYSTEM_H
+namespace UI
+{
+    void advanceFrame();
+}
