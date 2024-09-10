@@ -41,7 +41,7 @@ int CApplication::run()
     while (m_Running)
     {
         // 1. Buffer input
-        inputBuffer.key = getch();
+        m_InputBuffer.key = getch();
         // ...buffer mouse input (will require some work)
 
         // 2. Advance frame (which will process input + update the terminal)
