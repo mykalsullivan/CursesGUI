@@ -6,6 +6,13 @@
 #include "cinput.h"
 #include <cassert>
 
+// Forward declaration(s)
+class CWidget;
+class CWidgetList;
+class CPoint;
+class CPalette;
+class CEvent;
+
 struct CCommandLineArgs
 {
     int count = 0;
@@ -32,8 +39,6 @@ public:
 
 private:
     CCommandLineArgs m_Args;
-    CInput m_InputBuffer;
-    CBinds m_Binds;
     bool m_Running;
 
 public:
@@ -41,9 +46,28 @@ public:
     void exit();
 
     [[nodiscard]] CCommandLineArgs args() const { return m_Args; }
-    [[nodiscard]] CInput input() const { return m_InputBuffer; }
-    [[nodiscard]] CBinds binds() const { return m_Binds; }
     [[nodiscard]] bool isRunning() const { return m_Running; }
     [[nodiscard]] static unsigned long widgetCount();
     [[nodiscard]] static unsigned long objectCount();
+
+    CWidget *activeModalWidget();
+    CWidget *activePopupWidget();
+    CWidgetList allWidgets();
+    void alert(CWidget *widget);
+    int doubleClickInterval();
+    int exec();
+    CWidget *focusWidget();
+    int keyboardInputInterval();
+    CPalette palette(const CWidget *widget);
+    void setDoubleClickInterval(int);
+    void setStartDragDistance(int l);
+    void setStartDragTime(int ms);
+    int startDragDistance();
+    int startDragTime();
+    CWidget *topLevelAt(const CPoint &point);
+    CWidget *topLevelAt(int x, int y);
+    CWidgetList topLevelWidgets();
+    CWidget *widgetAt(const CPoint &point);
+    CWidget *widgetAt(int x, int y);
+    virtual bool event(CEvent *e) override;
 };
