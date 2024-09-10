@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <ncurses.h>
 
 class CScreen {
 

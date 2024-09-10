@@ -34,7 +34,6 @@ add_executable(CursesGUI
         src/cvlayout.cpp
         src/cstretch.h
         src/capplication.cpp
-        src/cwidget_list.h
         src/main.cpp
         src/cinput.h
 )

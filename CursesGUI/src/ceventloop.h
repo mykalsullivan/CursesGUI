@@ -3,9 +3,8 @@
 //
 
 #pragma once
-
-// Forward declaration(s)
-class CObject;
+#include "cobject.h"
+#include "cevent.h"
 
 class CEventLoop {
 public:

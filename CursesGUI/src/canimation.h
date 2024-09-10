@@ -2,7 +2,9 @@
 // Created by msullivan on 9/9/24.
 //
 
-#ifndef CURSESGUI_CANIMATION_H
-#define CURSESGUI_CANIMATION_H
+#pragma once
+#include "cbitmap.h"
 
-#endif //CURSESGUI_CANIMATION_H
+class CAnimation {
+
+};

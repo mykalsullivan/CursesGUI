@@ -3,7 +3,8 @@
 //
 
 #pragma once
+#include "cscreen.h"
 
-class CWindow final {
+class CWindow {
 
 };

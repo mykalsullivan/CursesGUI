@@ -3,7 +3,8 @@
 //
 
 #pragma once
+#include "ccolor.h"
 
-class CPalette final {
+class CPalette {
 
 };

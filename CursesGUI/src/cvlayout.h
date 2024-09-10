@@ -5,8 +5,11 @@
 #pragma once
 #include "clayout.h"
 
+// Forward declaration(s)
+class CWidget;
+
 class CVLayout : public CLayout {
 public:
-    explicit CVLayout(QWidget *parent = nullptr);
+    explicit CVLayout(CWidget *parent = nullptr);
     ~CVLayout() override;
 };

@@ -3,7 +3,8 @@
 //
 
 #pragma once
+#include "cwidget.h"
 
-class CStatusBar {
+class CStatusBar : public CWidget {
 
 };

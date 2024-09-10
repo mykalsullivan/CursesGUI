@@ -3,7 +3,8 @@
 //
 
 #pragma once
+#include "cwidget.h"
 
-class CMenuBar {
+class CMenuBar : public CWidget {
 
 };

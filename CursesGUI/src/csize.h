@@ -4,10 +4,10 @@
 
 #pragma once
 
-class CSizePolicy final {
+class CSizePolicy {
 
 };
 
-class CSize final {
+class CSize {
 
 };
