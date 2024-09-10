@@ -17,6 +17,16 @@ CObject::~CObject()
         g_Registry.destroy(m_ID);
 }
 
+CObject &CObject::operator=(const CObject &)
+{
+    // Copy everything from the original object and make a new one
+}
+
+CObject &CObject::operator=(CObject &&)
+{
+    // Copy everything from the original object and make a new one
+}
+
 void CObject::init()
 {
     m_ID = g_Registry.create();
@@ -25,19 +35,14 @@ void CObject::init()
     dataComponent.framesLapsed = 0l;
 }
 
-bool CObject::attach(CListener* listener)
+void CObject::connect(const CObject &sender, const char *signal,
+                        const CObject &receiver, const char *method)
 {
 
-    return false;
 }
 
-bool CObject::detach(CListener* listener)
-{
-
-    return false;
-}
-
-void CObject::notify(CListener* listener)
+void CObject::disconnect(const CObject &sender, const char *signal,
+                           const CObject &receiver, const char *method)
 {
 
 }

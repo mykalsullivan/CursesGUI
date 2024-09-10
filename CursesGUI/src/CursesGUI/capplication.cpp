@@ -43,23 +43,6 @@ int CApplication::run()
     init();
     CViewport viewport;
 
-    mvprintw(2, 0, "Viewport only...");
-    mvprintw(3, 0, "Widgets: %ld", widgetCount());
-    mvprintw(4, 0, "Objects: %ld", objectCount());
-    getch();
-
-    auto widget = new CWidget;
-    mvprintw(6, 0, "Added widget...");
-    mvprintw(7, 0, "Widgets: %ld", widgetCount());
-    mvprintw(8, 0, "Objects: %ld", objectCount());
-    getch();
-
-    delete widget;
-    mvprintw(22, 0, "Deleted widget...");
-    mvprintw(23, 0, "Widgets: %ld", widgetCount());
-    mvprintw(24, 0, "Objects: %ld", objectCount());
-    getch();
-
     while (m_Running)
     {
         // 1. Get input

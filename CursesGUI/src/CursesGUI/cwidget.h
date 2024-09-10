@@ -16,12 +16,11 @@ public:
     explicit CWidget(CWidget *parent = nullptr);
     ~CWidget() override;
 
-    CWidget& operator=(const CWidget&);
-    CWidget& operator=(CWidget&&);
+    CWidget &operator=(const CWidget &);
+    CWidget &operator=(CWidget &&);
 
 protected:
     CWidget *m_Parent;
-    CList<CObject *> m_Children;
     CLayout *m_Layout;
 
 private:

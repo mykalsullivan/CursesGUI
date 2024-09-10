@@ -11,12 +11,12 @@ CWidget::CWidget(CWidget *parent) : m_Parent(parent), m_Layout(nullptr)
     init();
 }
 
-CWidget& CWidget::operator=(const CWidget&)
+CWidget &CWidget::operator=(const CWidget &)
 {
     // Copy everything from the original widget and make a new one
 }
 
-CWidget& CWidget::operator=(CWidget&&)
+CWidget &CWidget::operator=(CWidget &&)
 {
     // Copy everything from the original widget and make a new one
 }
