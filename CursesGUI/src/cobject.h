@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "clist.h"
+#include "CursesGUI/clist.h"
 
 class CObject;
 using CObjectList = CList<CObject *>;

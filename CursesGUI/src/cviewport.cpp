@@ -2,8 +2,8 @@
 // Created by msullivan on 9/7/24.
 //
 
-#include "cviewport.h"
-#include "components.h"
+#include "CursesGUI/cviewport.h"
+#include "CursesGUI/components.h"
 
 #include <iostream>
 

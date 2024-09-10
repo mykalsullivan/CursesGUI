@@ -1,4 +1,4 @@
-#include "CursesGUI/capplication.h"
+#include "capplication.h"
 
 int main()
 {

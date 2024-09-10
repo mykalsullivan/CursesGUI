@@ -14,29 +14,29 @@ project(CursesGUI VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}
 find_package(Curses REQUIRED)
 
 add_executable(CursesGUI
-        src/CursesGUI/components.h
-        src/CursesGUI/cwidget.h
-        src/CursesGUI/cwidget.cpp
-        src/CursesGUI/renderer.h
-        src/CursesGUI/renderer.cpp
-        src/CursesGUI/capplication.h
-        src/CursesGUI/capplication.cpp
-        src/CursesGUI/cobject.h
-        src/CursesGUI/cobject.cpp
-        src/CursesGUI/clayout.h
-        src/CursesGUI/cviewport.h
-        src/CursesGUI/cviewport.cpp
-        src/CursesGUI/clayout.cpp
-        src/CursesGUI/clist.h
-        src/CursesGUI/chlayout.h
-        src/CursesGUI/cvlayout.h
-        src/CursesGUI/chlayout.cpp
-        src/CursesGUI/cvlayout.cpp
-        src/CursesGUI/cstretch.h
-        src/CursesGUI/capplication.cpp
-        src/CursesGUI/cwidget_list.h
+        src/components.h
+        src/cwidget.h
+        src/cwidget.cpp
+        src/renderer.h
+        src/renderer.cpp
+        src/capplication.h
+        src/capplication.cpp
+        src/cobject.h
+        src/cobject.cpp
+        src/clayout.h
+        src/cviewport.h
+        src/cviewport.cpp
+        src/clayout.cpp
+        src/clist.h
+        src/chlayout.h
+        src/cvlayout.h
+        src/chlayout.cpp
+        src/cvlayout.cpp
+        src/cstretch.h
+        src/capplication.cpp
+        src/cwidget_list.h
         src/main.cpp
-        src/CursesGUI/cinput.h
+        src/cinput.h
 )
 
 target_link_libraries(CursesGUI

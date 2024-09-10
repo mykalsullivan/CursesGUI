@@ -2,7 +2,7 @@
 // Created by msullivan on 9/7/24.
 //
 
-#include "renderer.h"
+#include "CursesGUI/renderer.h"
 #include "cwidget.h"
 
 namespace UI

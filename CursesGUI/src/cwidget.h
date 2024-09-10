@@ -4,7 +4,7 @@
 
 #pragma once
 #include "cobject.h"
-#include "clist.h"
+#include "CursesGUI/clist.h"
 
 // Forward declaration(s)
 class CLayout;
