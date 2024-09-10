@@ -1,11 +1,19 @@
-* You might want to fix the CList
-	- Objects cannot be removed
-	- The 'clear' function does not delete objects from the list
-* When a QWidget is destroyed, the children are not properly deleted along with it
-* Widgets need a way to remove itself from it's parent if it is the child of a parent widget.
-	- Example:
-		CWidget* widget1 = new CWidget; 	<-- Widget 1
-		CWidget* widget2 = new CWidget;		<-- Widget 2
-		widget1->addWidget(widget2);		<-- Widget 2 is now the child of widget 1
-		
-		delete widget2;				<-- Widget 2 has been deleted, but a pointer to it still exists in widget 1
+### Features to ADD: ###
+1. Most of the stuff in the CursesGUI directory
+    1. Add function declarations based on Qt classes of the same name
+    2. Add enum types based on the ones from Qt
+2. Basic rendering
+3. Move CursesWindow to CWindow or CScreen class (whichever one makes the most sense)
+4. Find out how to handle top-level CWidgets
+
+
+### Features to REMOVE: ###
+1. EnTT implementation
+    * For something like this, it makes it easier and simpler just to use standard OOP instead of an ECS
+
+
+### Bugs: ###
+- (None for now, although I'm sure a fuck ton will pop up later)
+
+
+### Other stuff to do: ###

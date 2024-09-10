@@ -17,12 +17,12 @@ CObject::~CObject()
         g_Registry.destroy(m_ID);
 }
 
-CObject &CObject::operator=(const CObject &)
+CObject &CObject::operator=(const CObject &) noexcept
 {
     // Copy everything from the original object and make a new one
 }
 
-CObject &CObject::operator=(CObject &&)
+CObject &CObject::operator=(CObject &&) noexcept
 {
     // Copy everything from the original object and make a new one
 }
