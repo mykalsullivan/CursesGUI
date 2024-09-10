@@ -11,6 +11,10 @@ class CLayout;
 enum class CColorAttribute;
 using CColor = int;
 
+class CWidgetData {
+
+};
+
 class CWidget : public CObject {
 public:
     explicit CWidget(CWidget *parent = nullptr);
@@ -48,7 +52,6 @@ public:
 
     // Layout
     virtual CLayout* layout() { return m_Layout; }
-    virtual CList<CObject *> &children() { return m_Children; }
 
     // Colors
     virtual void setForegroundColor(CColor);

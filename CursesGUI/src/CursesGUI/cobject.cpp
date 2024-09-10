@@ -35,14 +35,14 @@ void CObject::init()
     dataComponent.framesLapsed = 0l;
 }
 
-void CObject::connect(const CObject &sender, const char *signal,
-                        const CObject &receiver, const char *method)
+void CObject::connect(const CObject &sender, void *signal,
+                        const CObject &receiver, void *method)
 {
 
 }
 
-void CObject::disconnect(const CObject &sender, const char *signal,
-                           const CObject &receiver, const char *method)
+void CObject::disconnect(const CObject &sender, void *signal,
+                           const CObject &receiver, void *method)
 {
 
 }

@@ -49,7 +49,6 @@ int CApplication::run()
 
         exit();
     }
-
     return 0;
 }
 
