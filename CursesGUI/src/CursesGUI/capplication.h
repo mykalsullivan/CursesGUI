@@ -5,7 +5,6 @@
 #pragma once
 #include "cinput.h"
 #include <cassert>
-#include "../../include/entt.hpp"
 
 struct CCommandLineArgs
 {

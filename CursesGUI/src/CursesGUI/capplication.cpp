@@ -4,8 +4,8 @@
 
 #include "capplication.h"
 #include "cviewport.h"
-#include "../ECS/components.h"
-#include "../ECS/render_system.h"
+
+#include "renderer.h"
 #include <ncurses.h>
 
 struct CursesWindowComponent;
@@ -33,6 +33,7 @@ int CApplication::run()
     initscr();
     start_color();
     noecho();
+    timeout(16);
     curs_set(0);
     refresh();
 
@@ -59,10 +60,10 @@ void CApplication::exit()
 
 unsigned long CApplication::widgetCount()
 {
-    return g_Registry.view<CursesWindowComponent>().size();
+
 }
 
 unsigned long CApplication::objectCount()
 {
-    return g_Registry.view<Data>().size();
+
 }

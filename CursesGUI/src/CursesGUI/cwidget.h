@@ -27,9 +27,6 @@ protected:
     CWidget *m_Parent;
     CLayout *m_Layout;
 
-private:
-    void init() override;
-
 public:
     virtual void show();
     virtual void hide();

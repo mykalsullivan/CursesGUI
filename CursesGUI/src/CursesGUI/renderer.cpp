@@ -2,8 +2,8 @@
 // Created by msullivan on 9/7/24.
 //
 
-#include "render_system.h"
-#include "../CursesGUI/cwidget.h"
+#include "renderer.h"
+#include "cwidget.h"
 
 namespace UI
 {

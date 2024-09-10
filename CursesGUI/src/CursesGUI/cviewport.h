@@ -14,7 +14,4 @@ class CViewport final : public CWidget {
 
 public:
     ~CViewport() override;
-
-private:
-    void init() override;
 };

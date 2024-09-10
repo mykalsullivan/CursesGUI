@@ -3,18 +3,16 @@
 //
 
 #include "cobject.h"
-#include "../ECS/components.h"
+#include "components.h"
 
-CObject::CObject(CObject* parent) : m_Parent(parent), m_ID(g_Registry.create())
+CObject::CObject(CObject* parent) : m_Parent(parent)
 {
-    init();
+
 }
 
 CObject::~CObject()
 {
-    // Remove from registry
-    if (m_ID != entt::null)
-        g_Registry.destroy(m_ID);
+
 }
 
 CObject &CObject::operator=(const CObject &) noexcept
@@ -25,14 +23,6 @@ CObject &CObject::operator=(const CObject &) noexcept
 CObject &CObject::operator=(CObject &&) noexcept
 {
     // Copy everything from the original object and make a new one
-}
-
-void CObject::init()
-{
-    m_ID = g_Registry.create();
-    g_Registry.emplace<Data>(m_ID);
-    auto& dataComponent = g_Registry.get<Data>(m_ID);
-    dataComponent.framesLapsed = 0l;
 }
 
 void CObject::connect(const CObject &sender, void *signal,

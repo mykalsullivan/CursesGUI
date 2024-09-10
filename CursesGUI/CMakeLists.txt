@@ -14,21 +14,11 @@ project(CursesGUI VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}
 find_package(Curses REQUIRED)
 
 add_executable(CursesGUI
-        src/ECS/components.h
+        src/CursesGUI/components.h
         src/CursesGUI/cwidget.h
         src/CursesGUI/cwidget.cpp
-        src/ECS/render_system.h
-        src/ECS/render_system.cpp
-        src/ECS/dimensions_system.h
-        src/ECS/dimensions_system.cpp
-        src/ECS/attributes_system.h
-        src/ECS/attributes_system.cpp
-        src/ECS/position_system.h
-        src/ECS/position_system.cpp
-        src/ECS/utility_system.h
-        src/ECS/utility_system.cpp
-        src/ECS/color_system.h
-        src/ECS/color_system.cpp
+        src/CursesGUI/renderer.h
+        src/CursesGUI/renderer.cpp
         src/CursesGUI/capplication.h
         src/CursesGUI/capplication.cpp
         src/CursesGUI/cobject.h
@@ -36,8 +26,6 @@ add_executable(CursesGUI
         src/CursesGUI/clayout.h
         src/CursesGUI/cviewport.h
         src/CursesGUI/cviewport.cpp
-        src/CursesGUI/cregistry.cpp
-        src/CursesGUI/cregistry.h
         src/CursesGUI/clayout.cpp
         src/CursesGUI/clist.h
         src/CursesGUI/chlayout.h

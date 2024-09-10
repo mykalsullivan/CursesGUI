@@ -3,14 +3,9 @@
 //
 
 #pragma once
-#include "cregistry.h"
 #include "clist.h"
-#include "../../include/entt.hpp"
-
-extern CRegistry g_Registry;
 
 class CObject;
-using CEntityID = entt::entity;
 using CObjectList = CList<CObject *>;
 
 class CObject {
@@ -24,15 +19,10 @@ public:
     CObject &operator=(CObject &&) noexcept;
 
 protected:
-    CEntityID m_ID;
     CObject *m_Parent;
     CObjectList m_Children;
 
-private:
-    virtual void init();
-
 public:
-    [[nodiscard]] virtual CEntityID id() const { return m_ID; }
     [[nodiscard]] virtual CObject *parent() { return m_Parent; }
     [[nodiscard]] virtual CObjectList &children() { return m_Children; }
 
