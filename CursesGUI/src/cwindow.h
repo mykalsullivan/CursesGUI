@@ -6,5 +6,11 @@
 #include "cscreen.h"
 
 class CWindow {
+public:
+    CWindow();
+    ~CWindow();
+
+private:
+    bool m_Active;
 
 };
